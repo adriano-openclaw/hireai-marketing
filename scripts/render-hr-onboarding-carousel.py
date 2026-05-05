@@ -7,7 +7,7 @@ import cairosvg
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / 'exports' / 'hr-onboarding'
+OUT_DIR = ROOT / 'exports' / 'hr-onboarding-v4'
 GEN_DIR = ROOT / 'assets' / 'generated' / 'hr-onboarding'
 W = H = 2160
 S = 2
@@ -39,10 +39,26 @@ def font(path, size, axes=None):
     return f
 
 # Axes are best-effort for variable fonts. Fallback is still the correct family.
-def fraunces(size): return font(FRAUNCES, size, [0, 0, 72, 800])
-def caveat(size): return font(CAVEAT, size, [700])
-def inter(size): return font(INTER, size, [14, 700])
-def inter_regular(size): return font(INTER, size, [14, 400])
+def fraunces(size):
+    f = font(FRAUNCES, size)
+    try: f.set_variation_by_name('Bold')
+    except Exception: pass
+    return f
+def caveat(size):
+    f = font(CAVEAT, size)
+    try: f.set_variation_by_name('Bold')
+    except Exception: pass
+    return f
+def inter(size):
+    f = font(INTER, size)
+    try: f.set_variation_by_name('SemiBold')
+    except Exception: pass
+    return f
+def inter_regular(size):
+    f = font(INTER, size)
+    try: f.set_variation_by_name('Regular')
+    except Exception: pass
+    return f
 
 
 def svg_to_image(path, out_w, out_h):
@@ -148,7 +164,7 @@ def paste_with_shadow(base, img, xy, shadow_alpha=22):
     base.alpha_composite(img, xy)
 
 
-def base(page):
+def base(page, footer='center'):
     img = Image.new('RGBA', (W,H), BG)
     d = ImageDraw.Draw(img, 'RGBA')
     spacing, radius = px(27), px(2.5)
@@ -163,8 +179,67 @@ def base(page):
     for i in range(4):
         cx = start_x + r + i*(2*r+gap)
         d.ellipse((cx-r, y, cx+r, y+2*r), fill=ORANGE if i == page-1 else DARK)
-    img.alpha_composite(logo, ((W-logo.width)//2, px(982)))
+    if footer == 'center':
+        img.alpha_composite(logo, ((W-logo.width)//2, px(982)))
+    elif footer == 'left':
+        img.alpha_composite(logo, (px(66), px(982)))
     return img, d
+
+
+def draw_inline_centered_by_ink(draw, center_y, parts, gap=8):
+    """Center a mixed-font line and align by visible ink center, not raw y offsets."""
+    metrics = []
+    total = 0
+    for text, f, fill in parts:
+        bbox = draw.textbbox((0, 0), text, font=f)
+        w = bbox[2] - bbox[0]
+        h = bbox[3] - bbox[1]
+        metrics.append((text, f, fill, bbox, w, h))
+        total += w
+    total += px(gap) * (len(parts) - 1)
+    x = (W - total) // 2
+    cy = px(center_y)
+    for text, f, fill, bbox, w, h in metrics:
+        y = cy - h // 2 - bbox[1]
+        draw.text((x - bbox[0], y), text, font=f, fill=fill)
+        x += w + px(gap)
+
+
+def draw_cta_button(draw, xy, size=(393, 99)):
+    x, y = px(xy[0]), px(xy[1])
+    w, h = px(size[0]), px(size[1])
+    # Orange drop shadow, matching the sample but avoiding the broken embedded pointer asset.
+    draw.rounded_rectangle((x, y+px(8), x+w, y+h-px(20)), radius=px(15), fill=(152, 34, 0, 255))
+    draw.rounded_rectangle((x, y, x+w, y+h-px(20)), radius=px(15), fill=(30, 26, 23, 255))
+    label_f = inter(31)
+    label = 'Book a discovery call'
+    bw, bh = text_size(draw, label, label_f)
+    draw.text((x + px(31), y + (h-px(20)-bh)//2 - px(2)), label, font=label_f, fill=(250, 250, 247, 255))
+    # Hand-coded cursor/pointer, intentionally simple and crisp.
+    cursor = [
+        (x+w-px(86), y+h-px(42)),
+        (x+w-px(33), y+h-px(16)),
+        (x+w-px(55), y+h-px(23)),
+        (x+w-px(43), y+h-px(2)),
+        (x+w-px(60), y+h+px(6)),
+        (x+w-px(72), y+h-px(15)),
+        (x+w-px(84), y+h+px(1)),
+    ]
+    draw.polygon(cursor, fill=(250, 250, 247, 255), outline=(30, 26, 23, 255))
+
+
+def draw_footer_container(draw, xy, size=(354, 72)):
+    x, y = px(xy[0]), px(xy[1])
+    w, h = px(size[0]), px(size[1])
+    draw.rounded_rectangle((x, y, x+w, y+h), radius=px(18), fill=(255,255,255,235), outline=(17,17,17,36), width=px(2))
+    top_f = inter(20)
+    url_f = inter(22)
+    top = 'Let someone handle the rest.'
+    url = 'https://hireai.bot'
+    tw, th = text_size(draw, top, top_f)
+    uw, uh = text_size(draw, url, url_f)
+    draw.text((x + (w-tw)//2, y + px(13)), top, font=top_f, fill=BLACK)
+    draw.text((x + (w-uw)//2, y + px(40)), url, font=url_f, fill=ORANGE)
 
 
 def draw_blob(img, box, rotate=0):
@@ -176,79 +251,79 @@ def draw_blob(img, box, rotate=0):
 
 
 def slide1():
-    img,d = base(1)
-    draw_h1(d, (96, 190), '“How many leave days\ndo I have left?”', 72, 8)
-    y = draw_body(d, (96, 390), 'Your HR team answered that', 30)
-    d.text((px(96), y+px(4)), '17 times', font=caveat(82), fill=ORANGE)
-    w17 = text_size(d, '17 times', caveat(82))[0]
-    d.text((px(96)+w17+px(8), y+px(25)), 'this week.', font=inter(30), fill=BLACK)
-    draw_blob(img, (330, 500, 690, 450), -6)
-    ill = load_illustration('slide-1-phone-chat-volume.png', (690,690))
-    paste_with_shadow(img, ill, (px(365), px(445)))
-    return img
+    img,d = base(1, footer='left')
+    draw_h1(d, (0, 220), '“How many leave days\ndo I have left?”', 72, 8, align='center')
 
+    # Centered support copy. Inter lines are consistent; Caveat is tuned visually to match Inter size.
+    support_f = inter(34)
+    accent_f = caveat(48)
+    line1 = 'Your HR team answered that'
+    w1, h1 = text_size(d, line1, support_f)
+    d.text(((W-w1)//2, px(416)), line1, font=support_f, fill=BLACK)
+    draw_inline_centered_by_ink(d, 474, [('17 times', accent_f, ORANGE), ('this week.', support_f, BLACK)], gap=8)
+
+    draw_blob(img, (568, 610, 275, 195), -6)
+    ill = load_illustration('slide-1-phone-chat-volume.png', (875,875))
+    # intentional crop/oversize to remove dead lower-left space and make the layout feel centered
+    paste_with_shadow(img, ill, ((W-ill.width)//2 + px(38), px(505)))
+    return img
 
 def slide2():
     img,d = base(2)
-    draw_h1(d, (86, 184), 'And before\nlunch, they also:', 69, 8)
-    items = [('6', 'onboarding checklists'), ('4', 'unsigned contracts'), ('3', 'payslip questions'), ('Again.', 'reimbursement policy')]
-    y = px(430)
-    for num, txt in items:
-        d.rounded_rectangle((px(86), y, px(500), y+px(64)), radius=px(18), fill=(255,255,255,230), outline=(17,17,17,80), width=px(2))
-        d.text((px(112), y+px(4)), num, font=caveat(48), fill=ORANGE)
-        nx = px(112) + text_size(d, num, caveat(48))[0] + px(11)
-        d.text((nx, y+px(20)), txt, font=inter(21), fill=BLACK)
-        y += px(74)
-    draw_blob(img, (515, 430, 560, 470), 7)
-    ill = load_illustration('slide-2-overflowing-inbox-sara.png', (600,600))
-    paste_with_shadow(img, ill, (px(520), px(438)))
+    draw_h1(d, (86, 202), 'And before lunch,\nthey also:', 74, 8)
+    draw_blob(img, (455, 452, 485, 390), 5)
+    ill = load_illustration('slide-2-overflowing-inbox-sara.png', (690,690))
+    paste_with_shadow(img, ill, (px(430), px(390)))
+
+    # Floating task cards, integrated around the overflowing inbox visual.
+    cards = [
+        (84, 470, 465, 65, '6', 'onboarding checklists'),
+        (120, 555, 405, 62, '4', 'unsigned contracts'),
+        (80, 642, 388, 62, '3', 'payslip questions'),
+        (116, 730, 460, 66, 'Again.', 'reimbursement policy'),
+    ]
+    for x,y,w,h,num,txt in cards:
+        d.rounded_rectangle((px(x), px(y), px(x+w), px(y+h)), radius=px(18), fill=(255,255,255,225), outline=(17,17,17,55), width=px(2))
+        nf = caveat(54 if num != 'Again.' else 48)
+        tf = inter(25)
+        gap = px(12)
+        nw = text_size(d, num, nf)[0]
+        tw = text_size(d, txt, tf)[0]
+        group_w = nw + gap + tw
+        start_x = px(x) + (px(w) - group_w)//2 + px(10)
+        d.text((start_x, px(y+2)), num, font=nf, fill=ORANGE)
+        d.text((start_x + nw + gap, px(y+21)), txt, font=tf, fill=BLACK)
     return img
 
-
 def slide3():
-    img,d = base(3)
-    draw_h1(d, (0, 176), "HR's job is", 76, 0, align='center')
-    people_f = caveat(102)
+    img,d = base(3, footer='left')
+    draw_h1(d, (0, 205), "HR's job is", 82, 0, align='center')
+    people_f = caveat(110)
     word = 'people.'
     ww, wh = text_size(d, word, people_f)
-    x = (W-ww)//2; y = px(262)
+    x = (W-ww)//2; y = px(295)
     d.text((x,y), word, font=people_f, fill=ORANGE)
-    # underline, intentionally below the word (not strikethrough)
-    d.rounded_rectangle((x+px(8), y+px(100), x+ww-px(8), y+px(110)), radius=px(8), fill=ORANGE)
-    draw_h1(d, (0, 384), 'Not paperwork\nthat repeats itself.', 54, 6, align='center')
-
-    panel_y, panel_h = px(610), px(286)
-    left = (px(80), panel_y, px(520), panel_y+panel_h)
-    right = (px(560), panel_y, px(1000), panel_y+panel_h)
-    d.rounded_rectangle(left, radius=px(24), fill=(255,255,255,242), outline=(232,83,40,170), width=px(4))
-    d.rounded_rectangle(right, radius=px(24), fill=(255,255,255,242), outline=(17,17,17,120), width=px(3))
-    d.text((px(116), panel_y+px(32)), 'What HR\nShould Do', font=fraunces(32), fill=BLACK, spacing=px(4))
-    d.text((px(596), panel_y+px(32)), 'What They\nActually Do', font=fraunces(32), fill=BLACK, spacing=px(4))
-
-    # simple illustration/icon marks inside the panels, keeping text readable
-    for cx, cy, col in [(162, 768, ORANGE), (202, 794, BLACK), (242, 768, ORANGE)]:
-        d.ellipse((px(cx-15), px(cy-15), px(cx+15), px(cy+15)), fill=col)
-    d.arc((px(128), px(804), px(276), px(874)), 195, 345, fill=BLACK, width=px(5))
-    for i,t in enumerate(['coaching','culture','hiring strategy']):
-        d.text((px(305), panel_y+px(146+i*39)), t, font=inter_regular(22), fill=GRAY)
-
-    for i in range(3):
-        y0 = panel_y + px(140+i*42)
-        d.rounded_rectangle((px(602), y0, px(680), y0+px(26)), radius=px(6), outline=BLACK, width=px(3), fill=(255,255,255,255))
-        d.line((px(616), y0+px(13), px(666), y0+px(13)), fill=ORANGE, width=px(3))
-    for i,t in enumerate(['repeat FAQs','forms','policy reminders']):
-        d.text((px(710), panel_y+px(145+i*39)), t, font=inter_regular(22), fill=GRAY)
+    d.rounded_rectangle((x+px(10), y+px(112), x+ww-px(10), y+px(119)), radius=px(8), fill=ORANGE)
+    draw_h1(d, (0, 415), 'Not paperwork\nthat repeats itself.', 58, 6, align='center')
+    draw_blob(img, (162, 585, 760, 350), -2)
+    ill = load_illustration('slide-3-people-vs-paperwork-v2.png', (760,500))
+    paste_with_shadow(img, ill, ((W-ill.width)//2, px(590)), 18)
     return img
 
 def slide4():
-    img,d = base(4)
-    draw_h1(d, (86, 180), 'HireAI answers\nthe repeat questions.', 62, 6)
-    d.text((px(86), px(332)), 'HR handles what actually matters.', font=caveat(66), fill=ORANGE)
-    draw_wrapped(d, (86, 421), 'Leave balances, policy FAQs, onboarding checklists, and document reminders — handled automatically.', inter(23), BLACK, 355, 7)
-    draw_blob(img, (455, 450, 610, 450), -3)
+    img,d = base(4, footer='none')
+    draw_h1(d, (72, 200), 'HireAI answers\nthe repeat questions.', 74, 6)
+    d.text((px(72), px(386)), 'HR handles what actually matters.', font=caveat(70), fill=ORANGE)
+    draw_wrapped(d, (72, 492), 'Leave balances, policy FAQs, onboarding checklists, and document reminders — handled automatically.', inter(30), BLACK, 415, 9)
+
+    # Lowered so it no longer intrudes into the orange "matters" line.
+    draw_blob(img, (615, 575, 290, 230), -3)
     ill = load_illustration('slide-4-hr-automation-resolution.png', (620,620))
-    paste_with_shadow(img, ill, (px(505), px(455)))
-    d.text((px(796), px(1000)), 'hireai.bot', font=inter_regular(22), fill=GRAY)
+    paste_with_shadow(img, ill, (px(555), px(520)))
+
+    # Code-drawn CTA and footer container per v3 feedback; no SVG pointer asset.
+    draw_cta_button(d, (62, 850))
+    draw_footer_container(d, (652, 930))
     return img
 
 SLIDES = [slide1, slide2, slide3, slide4]
