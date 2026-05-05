@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Light Brand Background</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --mark: rgba(226, 229, 235, 0.52);
+      --size: 27px;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #f5f5f5;
+      display: grid;
+      place-items: center;
+    }
+
+    .creative-bg {
+      width: 1080px;
+      height: 1080px;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 7px 7px, var(--mark) 0 2.5px, transparent 2.8px),
+        linear-gradient(45deg, transparent 42%, var(--mark) 42% 49%, transparent 49% 100%);
+      background-size: var(--size) var(--size), var(--size) var(--size);
+      background-position: 0 0, 13px 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="creative-bg" aria-label="Light brand background pattern"></div>
+</body>
+</html>
