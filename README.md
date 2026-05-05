@@ -1,4 +1,8 @@
-# HireAI Social Creative System
+# HireAI Marketing
+
+Marketing files, social creative assets, and reusable brand/design-system code for HireAI.
+
+## Social Creative System
 
 Reusable coded design assets for HireAI social media creatives.
 
@@ -21,3 +25,8 @@ node generate-light-background.mjs
 ```
 
 This writes `light-background-1080.png`.
+
+
+## Repository scope
+
+This repo is intended to collect HireAI marketing assets over time, including social creatives, reusable backgrounds, generated images, caption drafts, brand rules, and future campaign files.
