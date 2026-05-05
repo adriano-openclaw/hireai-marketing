@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;700&display=swap');
+
 :root {
   --hireai-orange: #E85328;
   --hireai-page-dot: #3f4142;
   --hireai-dot: rgba(226, 229, 235, 0.52);
   --hireai-canvas: #ffffff;
+  --hireai-text: #000000;
+  --hireai-muted: #7C7C7C;
+  --hireai-font-h1: 'Fraunces', Georgia, serif;
+  --hireai-font-accent: 'Caveat', 'Comic Sans MS', cursive;
+  --hireai-font-body: 'Inter', Arial, sans-serif;
 }
 
 .hireai-creative {
@@ -13,6 +20,7 @@
   background-color: var(--hireai-canvas);
   background-image: radial-gradient(circle at 14px 14px, var(--hireai-dot) 0 2.5px, transparent 2.8px);
   background-size: 27px 27px;
+  color: var(--hireai-text);
 }
 
 .hireai-box-logo {
@@ -64,4 +72,65 @@
 .hireai-text-logo--left {
   left: 66px;
   transform: none;
+}
+
+/* Typography roles for HireAI social creatives. */
+.hireai-h1 {
+  margin: 0;
+  font-family: var(--hireai-font-h1);
+  font-weight: 800;
+  font-size: var(--hireai-h1-size, 80px);
+  line-height: var(--hireai-h1-line-height, 0.95);
+  letter-spacing: var(--hireai-h1-letter-spacing, -0.035em);
+  color: var(--hireai-text);
+}
+
+.hireai-highlight {
+  font-family: var(--hireai-font-accent);
+  font-weight: 700;
+  font-size: var(--hireai-highlight-size, 1.12em);
+  line-height: var(--hireai-highlight-line-height, 0.9);
+  color: var(--hireai-orange);
+  letter-spacing: 0;
+}
+
+.hireai-highlight--block {
+  display: block;
+}
+
+.hireai-highlight--underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hireai-highlight--underline::after {
+  content: '';
+  position: absolute;
+  left: 0.05em;
+  right: 0.02em;
+  bottom: 0.02em;
+  height: 0.08em;
+  border-radius: 999px;
+  background: currentColor;
+  transform: rotate(-1.5deg);
+  opacity: 0.9;
+}
+
+.hireai-body-bold {
+  margin: 0;
+  font-family: var(--hireai-font-body);
+  font-weight: 700;
+  font-size: var(--hireai-body-size, 28px);
+  line-height: var(--hireai-body-line-height, 1.18);
+  letter-spacing: var(--hireai-body-letter-spacing, -0.018em);
+  color: var(--hireai-text);
+}
+
+.hireai-note {
+  margin: 0;
+  font-family: var(--hireai-font-body);
+  font-weight: 400;
+  font-size: var(--hireai-note-size, 20px);
+  line-height: var(--hireai-note-line-height, 1.28);
+  color: var(--hireai-muted);
 }

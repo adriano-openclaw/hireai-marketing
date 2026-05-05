@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HireAI Option C — HR & Onboarding Carousel</title>
+  <link rel="stylesheet" href="../../components/hireai-brand.css" />
+  <style>
+    body { margin:0; background:#f5f5f5; display:grid; gap:32px; place-items:center; padding:32px; }
+    .slide-copy { position:absolute; left:86px; top:180px; width:520px; z-index:2; }
+    .slide-copy--wide { width:900px; text-align:center; left:90px; }
+    .creative-illustration { position:absolute; z-index:1; object-fit:contain; }
+    .creative-blob { position:absolute; z-index:0; background:#F7C6B5; opacity:.62; border-radius:50%; transform:rotate(-6deg); }
+  </style>
+</head>
+<body>
+  <!-- HTML reference for the four-slide carousel. Production PNGs are rendered by scripts/render-hr-onboarding-carousel.py. -->
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="1"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy">
+      <h1 class="hireai-h1" style="--hireai-h1-size:72px;">“How many leave days<br/>do I have left?”</h1>
+      <p class="hireai-body-bold" style="margin-top:28px;">Your HR team answered that <span class="hireai-highlight" style="--hireai-highlight-size:82px;">17 times</span> this week.</p>
+    </section>
+    <div class="creative-blob" style="left:330px; top:500px; width:690px; height:450px;"></div>
+    <img class="creative-illustration" style="right:45px; bottom:85px; width:690px;" src="../../assets/generated/hr-onboarding/slide-1-phone-chat-volume.png" alt="" />
+    <img class="hireai-text-logo hireai-text-logo--center" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="2"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy">
+      <h1 class="hireai-h1" style="--hireai-h1-size:69px;">And before<br/>lunch, they also:</h1>
+    </section>
+    <img class="creative-illustration" style="right:-20px; bottom:100px; width:600px;" src="../../assets/generated/hr-onboarding/slide-2-overflowing-inbox-sara.png" alt="" />
+    <img class="hireai-text-logo hireai-text-logo--center" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="3"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy slide-copy--wide">
+      <h1 class="hireai-h1" style="--hireai-h1-size:76px;">HR's job is <span class="hireai-highlight hireai-highlight--underline" style="--hireai-highlight-size:102px;">people.</span></h1>
+      <h2 class="hireai-h1" style="--hireai-h1-size:54px; margin-top:20px;">Not paperwork<br/>that repeats itself.</h2>
+    </section>
+    <img class="hireai-text-logo hireai-text-logo--center" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="4"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy" style="width:440px;">
+      <h1 class="hireai-h1" style="--hireai-h1-size:62px;">HireAI answers<br/>the repeat questions.</h1>
+      <p class="hireai-highlight" style="--hireai-highlight-size:66px; margin:14px 0 20px;">HR handles what actually matters.</p>
+      <p class="hireai-body-bold" style="--hireai-body-size:23px;">Leave balances, policy FAQs, onboarding checklists, and document reminders — handled automatically.</p>
+    </section>
+    <img class="creative-illustration" style="right:-30px; bottom:95px; width:620px;" src="../../assets/generated/hr-onboarding/slide-4-hr-automation-resolution.png" alt="" />
+    <img class="hireai-text-logo hireai-text-logo--center" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+</body>
+</html>
