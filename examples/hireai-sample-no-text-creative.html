@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HireAI Sample No-Text Creative — AI Recruiting Illustration</title>
+  <link rel="stylesheet" href="../components/hireai-brand.css" />
+  <style>
+    .sample-creative__stage {
+      position: absolute;
+      inset: 178px 88px 128px;
+      display: grid;
+      place-items: center;
+    }
+
+    .sample-creative__blob {
+      position: absolute;
+      width: 712px;
+      height: 548px;
+      left: 132px;
+      top: 226px;
+      border-radius: 48% 52% 48% 52% / 58% 44% 56% 42%;
+      background: #F7C6B5;
+      opacity: 0.68;
+      transform: rotate(-8deg);
+    }
+
+    .sample-creative__illustration {
+      position: relative;
+      width: 780px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 18px 0 rgba(232, 83, 40, 0.10));
+    }
+
+    .hireai-text-logo--sample {
+      left: 66px;
+      transform: none;
+    }
+  </style>
+</head>
+<body style="margin:0; display:grid; place-items:center; min-height:100vh; background:#f5f5f5;">
+  <main class="hireai-creative" aria-label="HireAI no-text sample creative using generated AI recruiting illustration">
+    <img class="hireai-box-logo" src="../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+
+    <nav class="hireai-pagination" data-page="1" aria-label="Page 1 of 4">
+      <span class="hireai-pagination__dot"></span>
+      <span class="hireai-pagination__dot"></span>
+      <span class="hireai-pagination__dot"></span>
+      <span class="hireai-pagination__dot"></span>
+    </nav>
+
+    <section class="sample-creative__stage" aria-label="Generated AI recruiting illustration">
+      <div class="sample-creative__blob" aria-hidden="true"></div>
+      <img class="sample-creative__illustration" src="../assets/generated/hireai-sample-ai-recruiting-illustration.png" alt="AI recruiting assistant and hiring manager illustration" />
+    </section>
+
+    <img class="hireai-text-logo hireai-text-logo--sample" src="../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+</body>
+</html>
