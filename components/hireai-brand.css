@@ -1,0 +1,67 @@
+:root {
+  --hireai-orange: #E85328;
+  --hireai-page-dot: #3f4142;
+  --hireai-dot: rgba(226, 229, 235, 0.52);
+  --hireai-canvas: #ffffff;
+}
+
+.hireai-creative {
+  position: relative;
+  width: 1080px;
+  height: 1080px;
+  overflow: hidden;
+  background-color: var(--hireai-canvas);
+  background-image: radial-gradient(circle at 14px 14px, var(--hireai-dot) 0 2.5px, transparent 2.8px);
+  background-size: 27px 27px;
+}
+
+.hireai-box-logo {
+  position: absolute;
+  top: 57px;
+  left: 66px;
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.hireai-pagination {
+  position: absolute;
+  top: 104px;
+  right: 104px;
+  display: flex;
+  gap: 4px;
+  width: 92px;
+  height: 20px;
+}
+
+.hireai-pagination__dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--hireai-page-dot);
+}
+
+.hireai-pagination[data-page='1'] .hireai-pagination__dot:nth-child(1),
+.hireai-pagination[data-page='2'] .hireai-pagination__dot:nth-child(2),
+.hireai-pagination[data-page='3'] .hireai-pagination__dot:nth-child(3),
+.hireai-pagination[data-page='4'] .hireai-pagination__dot:nth-child(4) {
+  background: var(--hireai-orange);
+}
+
+.hireai-text-logo {
+  position: absolute;
+  bottom: 68px;
+  width: 123px;
+  height: 27px;
+  display: block;
+}
+
+.hireai-text-logo--center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hireai-text-logo--left {
+  left: 66px;
+  transform: none;
+}
