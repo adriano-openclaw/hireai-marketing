@@ -316,7 +316,7 @@ def slide4():
     ill = load_illustration('slide-4-hr-automation-resolution.png', (620,620))
     paste_with_shadow(img, ill, (px(555), px(520)))
 
-    draw_cta_png(img, (62, 832), width=393)
+    draw_cta_png(img, (62, 760), width=393)
     draw_footer_strip(d)
     return img
 

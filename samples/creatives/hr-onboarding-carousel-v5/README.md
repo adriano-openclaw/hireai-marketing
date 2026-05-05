@@ -14,3 +14,7 @@ Key reusable lessons:
 - Use supplied working CTA PNG assets when available.
 - Footer should be a full-width soft bottom band with centered `Let someone handle the rest.` and centered orange `https://hireai.bot`.
 - Keep illustrations clear of important words/highlights.
+
+## Placement references
+
+- Slide 4 CTA placement reference for footer-band layout: position the CTA around x=62, y=760 on a 1080×1080 canvas (doubled in 2160 render) so it sits between the Inter body copy and the full-width footer band.
