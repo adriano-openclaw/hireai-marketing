@@ -7,7 +7,7 @@ import cairosvg
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / 'exports' / 'hr-onboarding-v4'
+OUT_DIR = ROOT / 'exports' / 'hr-onboarding-v5'
 GEN_DIR = ROOT / 'assets' / 'generated' / 'hr-onboarding'
 W = H = 2160
 S = 2
@@ -25,6 +25,7 @@ CAVEAT = FONT_DIR / 'Caveat.ttf'
 INTER = FONT_DIR / 'Inter.ttf'
 BOX_SVG = ROOT / 'assets' / 'logos' / 'hireai-box-logo.svg'
 TEXT_SVG = ROOT / 'assets' / 'logos' / 'hireai-text-logo.svg'
+CTA_PNG = ROOT / 'assets' / 'ui' / 'book-discovery-call-cta-v5.png'
 
 
 def px(v): return int(round(v * S))
@@ -64,6 +65,11 @@ def inter_regular(size):
 def svg_to_image(path, out_w, out_h):
     png = cairosvg.svg2png(url=str(path), output_width=out_w, output_height=out_h)
     return Image.open(BytesIO(png)).convert('RGBA')
+
+
+def png_to_image(path, out_w, out_h):
+    img = Image.open(path).convert('RGBA')
+    return img.resize((out_w, out_h), Image.Resampling.LANCZOS)
 
 
 def text_size(draw, text, f):
@@ -205,41 +211,25 @@ def draw_inline_centered_by_ink(draw, center_y, parts, gap=8):
         x += w + px(gap)
 
 
-def draw_cta_button(draw, xy, size=(393, 99)):
-    x, y = px(xy[0]), px(xy[1])
-    w, h = px(size[0]), px(size[1])
-    # Orange drop shadow, matching the sample but avoiding the broken embedded pointer asset.
-    draw.rounded_rectangle((x, y+px(8), x+w, y+h-px(20)), radius=px(15), fill=(152, 34, 0, 255))
-    draw.rounded_rectangle((x, y, x+w, y+h-px(20)), radius=px(15), fill=(30, 26, 23, 255))
-    label_f = inter(31)
-    label = 'Book a discovery call'
-    bw, bh = text_size(draw, label, label_f)
-    draw.text((x + px(31), y + (h-px(20)-bh)//2 - px(2)), label, font=label_f, fill=(250, 250, 247, 255))
-    # Hand-coded cursor/pointer, intentionally simple and crisp.
-    cursor = [
-        (x+w-px(86), y+h-px(42)),
-        (x+w-px(33), y+h-px(16)),
-        (x+w-px(55), y+h-px(23)),
-        (x+w-px(43), y+h-px(2)),
-        (x+w-px(60), y+h+px(6)),
-        (x+w-px(72), y+h-px(15)),
-        (x+w-px(84), y+h+px(1)),
-    ]
-    draw.polygon(cursor, fill=(250, 250, 247, 255), outline=(30, 26, 23, 255))
+def draw_cta_png(base, xy, width=393):
+    cta_raw = Image.open(CTA_PNG).convert('RGBA')
+    aspect = cta_raw.height / cta_raw.width
+    cta = cta_raw.resize((px(width), int(px(width) * aspect)), Image.Resampling.LANCZOS)
+    base.alpha_composite(cta, (px(xy[0]), px(xy[1])))
 
 
-def draw_footer_container(draw, xy, size=(354, 72)):
-    x, y = px(xy[0]), px(xy[1])
-    w, h = px(size[0]), px(size[1])
-    draw.rounded_rectangle((x, y, x+w, y+h), radius=px(18), fill=(255,255,255,235), outline=(17,17,17,36), width=px(2))
-    top_f = inter(20)
+def draw_footer_strip(draw):
+    # Match the sample footer: full-width soft peach band, two centered lines, no floating box.
+    y = px(974)
+    draw.rectangle((0, y, W, H), fill=(249, 238, 234, 255))
+    top_f = inter(25)
     url_f = inter(22)
     top = 'Let someone handle the rest.'
     url = 'https://hireai.bot'
     tw, th = text_size(draw, top, top_f)
     uw, uh = text_size(draw, url, url_f)
-    draw.text((x + (w-tw)//2, y + px(13)), top, font=top_f, fill=BLACK)
-    draw.text((x + (w-uw)//2, y + px(40)), url, font=url_f, fill=ORANGE)
+    draw.text(((W - tw) // 2, y + px(28)), top, font=top_f, fill=BLACK)
+    draw.text(((W - uw) // 2, y + px(56)), url, font=url_f, fill=ORANGE)
 
 
 def draw_blob(img, box, rotate=0):
@@ -287,12 +277,17 @@ def slide2():
         nf = caveat(54 if num != 'Again.' else 48)
         tf = inter(25)
         gap = px(12)
-        nw = text_size(d, num, nf)[0]
-        tw = text_size(d, txt, tf)[0]
+        nb = d.textbbox((0, 0), num, font=nf)
+        tb = d.textbbox((0, 0), txt, font=tf)
+        nw, nh = nb[2]-nb[0], nb[3]-nb[1]
+        tw, th = tb[2]-tb[0], tb[3]-tb[1]
         group_w = nw + gap + tw
         start_x = px(x) + (px(w) - group_w)//2 + px(10)
-        d.text((start_x, px(y+2)), num, font=nf, fill=ORANGE)
-        d.text((start_x + nw + gap, px(y+21)), txt, font=tf, fill=BLACK)
+        visual_cy = px(y + h/2 + 5)
+        num_y = visual_cy - nh//2 - nb[1] + px(1)
+        txt_y = visual_cy - th//2 - tb[1]
+        d.text((start_x - nb[0], num_y), num, font=nf, fill=ORANGE)
+        d.text((start_x + nw + gap - tb[0], txt_y), txt, font=tf, fill=BLACK)
     return img
 
 def slide3():
@@ -301,10 +296,10 @@ def slide3():
     people_f = caveat(110)
     word = 'people.'
     ww, wh = text_size(d, word, people_f)
-    x = (W-ww)//2; y = px(295)
+    x = (W-ww)//2; y = px(268)
     d.text((x,y), word, font=people_f, fill=ORANGE)
     d.rounded_rectangle((x+px(10), y+px(112), x+ww-px(10), y+px(119)), radius=px(8), fill=ORANGE)
-    draw_h1(d, (0, 415), 'Not paperwork\nthat repeats itself.', 58, 6, align='center')
+    draw_h1(d, (0, 402), 'Not paperwork\nthat repeats itself.', 58, 6, align='center')
     draw_blob(img, (162, 585, 760, 350), -2)
     ill = load_illustration('slide-3-people-vs-paperwork-v2.png', (760,500))
     paste_with_shadow(img, ill, ((W-ill.width)//2, px(590)), 18)
@@ -321,9 +316,8 @@ def slide4():
     ill = load_illustration('slide-4-hr-automation-resolution.png', (620,620))
     paste_with_shadow(img, ill, (px(555), px(520)))
 
-    # Code-drawn CTA and footer container per v3 feedback; no SVG pointer asset.
-    draw_cta_button(d, (62, 850))
-    draw_footer_container(d, (652, 930))
+    draw_cta_png(img, (62, 832), width=393)
+    draw_footer_strip(d)
     return img
 
 SLIDES = [slide1, slide2, slide3, slide4]
