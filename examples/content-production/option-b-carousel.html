@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>HireAI Option B — Content Production Carousel</title>
+  <link rel="stylesheet" href="../../components/hireai-brand.css" />
+  <style>
+    @font-face { font-family: FrauncesLocal; src: url('../../assets/fonts/Fraunces.ttf'); font-weight: 800; }
+    @font-face { font-family: CaveatLocal; src: url('../../assets/fonts/Caveat.ttf'); font-weight: 700; }
+    @font-face { font-family: InterLocal; src: url('../../assets/fonts/Inter.ttf'); font-weight: 600; }
+    :root { --orange:#E85328; --black:#000; --gray:#7C7C7C; --peach:#F9EEEA; }
+    body { margin:0; background:#ddd; font-family: InterLocal, sans-serif; }
+    .deck { display:grid; grid-template-columns:repeat(2,1080px); gap:24px; padding:24px; }
+    .slide { position:relative; width:1080px; height:1080px; overflow:hidden; background:#fff; }
+    .slide::before { content:""; position:absolute; inset:0; background-image: radial-gradient(rgba(226,229,235,.52) 2.5px, transparent 2.5px); background-size:27px 27px; background-position:14px 14px; }
+    .box-logo { position:absolute; left:66px; top:57px; width:100px; height:100px; }
+    .text-logo { position:absolute; left:66px; bottom:71px; width:123px; }
+    .dots { position:absolute; right:76px; top:104px; display:flex; gap:4px; }
+    .dot { width:20px; height:20px; border-radius:50%; background:#3F4142; }
+    .dot.active { background:var(--orange); }
+    h1 { position:absolute; margin:0; font-family:FrauncesLocal, serif; font-size:74px; line-height:.96; letter-spacing:-1px; color:#000; font-weight:800; }
+    .center { text-align:center; left:0; right:0; }
+    .body { position:absolute; font-size:31px; line-height:1.18; color:#000; font-weight:600; }
+    .highlight { font-family:CaveatLocal, cursive; color:var(--orange); font-weight:700; }
+    .art { position:absolute; object-fit:contain; }
+    .footer-band { position:absolute; left:0; right:0; bottom:0; height:106px; background:var(--peach); text-align:center; font-weight:600; }
+    .footer-band .top { margin-top:28px; font-size:25px; color:#000; }
+    .footer-band .url { margin-top:4px; font-size:22px; color:var(--orange); }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide"><img class="box-logo" src="../../assets/logos/hireai-box-logo.svg"/><div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><h1 class="center" style="top:205px">Brief. Draft.<br/>Revise. <span class="highlight">Repeat.</span></h1><div class="body center" style="top:385px">Your content team is stuck in a loop.</div><img class="art" style="left:155px;top:465px;width:770px;height:455px" src="../../assets/generated/content-production-option-b/slide-1-loop-graphic.png"/><img class="text-logo" src="../../assets/logos/hireai-text-logo.svg"/></section>
+    <section class="slide"><img class="box-logo" src="../../assets/logos/hireai-box-logo.svg"/><div class="dots"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div><h1 style="left:86px;top:198px">Every piece of<br/>content costs you:</h1><img class="art" style="left:365px;top:345px;width:620px;height:520px" src="../../assets/generated/content-production-option-b/slide-2-time-blocks.png"/><div class="body" style="left:92px;top:425px;font-size:29px;line-height:1.45">1 hour writing the brief<br/>2 hours on the first draft<br/><span class="highlight" style="font-size:58px">45 mins</span> of revisions<br/>Another round because<br/>“the tone is off”</div><img class="text-logo" src="../../assets/logos/hireai-text-logo.svg"/></section>
+    <section class="slide"><img class="box-logo" src="../../assets/logos/hireai-box-logo.svg"/><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div><h1 class="center" style="top:205px">The bottleneck<br/>isn’t your team.</h1><div class="highlight center" style="position:absolute;top:377px;font-size:72px">It’s the process.</div><img class="art" style="left:155px;top:475px;width:770px;height:455px" src="../../assets/generated/content-production-option-b/slide-3-funnel-bottleneck.png"/><img class="text-logo" src="../../assets/logos/hireai-text-logo.svg"/></section>
+    <section class="slide"><img class="box-logo" src="../../assets/logos/hireai-box-logo.svg"/><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div><h1 style="left:72px;top:190px">HireAI drafts<br/>on brief.</h1><div class="highlight" style="position:absolute;left:72px;top:360px;font-size:72px">Every time. First time.</div><div class="body" style="left:72px;top:474px;width:420px;font-size:27px;line-height:1.22">Blog posts, captions, scripts, and reports, drafted to your tone, ready to review.</div><img class="art" style="left:498px;top:430px;width:500px;height:440px" src="../../assets/generated/content-production-option-b/slide-4-johnny-document.png"/><img class="art" style="left:62px;top:832px;width:393px" src="../../assets/ui/book-discovery-call-cta-v5.png"/><div class="footer-band"><div class="top">Let someone handle the rest.</div><div class="url">https://hireai.bot</div></div></section>
+  </main>
+</body>
+</html>

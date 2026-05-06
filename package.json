@@ -1,0 +1,12 @@
+{
+  "name": "hireai-marketing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render:html-carousel": "node scripts/render-html-carousel.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.59.1"
+  }
+}

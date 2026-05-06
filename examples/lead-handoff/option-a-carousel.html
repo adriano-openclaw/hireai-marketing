@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HireAI Option A — Lead Handoff Carousel</title>
+  <link rel="stylesheet" href="../../components/hireai-brand.css" />
+  <style>
+    body { margin:0; background:#f5f5f5; display:grid; gap:32px; place-items:center; padding:32px; }
+    .slide-copy { position:absolute; left:72px; top:185px; width:900px; z-index:2; }
+    .slide-copy--left { width:470px; }
+    .creative-illustration { position:absolute; z-index:1; object-fit:contain; }
+    .mini-card { position:absolute; left:84px; width:281px; height:42px; border-radius:18px; background:#F9EEEA; font-family:Inter, sans-serif; font-weight:700; font-size:22px; display:flex; align-items:center; padding-left:26px; z-index:2; }
+    .footer-band { position:absolute; left:0; right:0; bottom:0; height:122px; background:#F9EEEA; text-align:center; font-weight:700; }
+    .footer-band .top { margin-top:24px; font-size:25px; }
+    .footer-band .url { margin-top:5px; font-size:22px; color:#E85328; }
+  </style>
+</head>
+<body>
+  <!-- HTML layout reference for the four-slide carousel. Production PNGs are rendered by scripts/render-lead-handoff-carousel.py. -->
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="1"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy" style="text-align:center;">
+      <h1 class="hireai-h1" style="--hireai-h1-size:70px;">The lead<br/>didn’t ghost you.</h1>
+      <p class="hireai-highlight" style="--hireai-highlight-size:76px; margin-top:18px;">Your follow-up did.</p>
+      <p class="hireai-body-bold" style="--hireai-body-size:26px; margin-top:42px;">Missed replies usually start as tiny dropped handoffs.</p>
+    </section>
+    <img class="creative-illustration" style="left:190px; bottom:72px; width:700px;" src="../../assets/generated/lead-handoff-dryrun/slide-1-missed-followup.png" alt="" />
+    <img class="hireai-text-logo" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="2"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy slide-copy--left">
+      <h1 class="hireai-h1" style="--hireai-h1-size:64px;">Every handoff<br/>adds one more<br/>place to drop it.</h1>
+    </section>
+    <div class="mini-card" style="top:445px;">Inbox</div>
+    <div class="mini-card" style="top:509px;">CRM</div>
+    <div class="mini-card" style="top:573px;">Sheet</div>
+    <div class="mini-card" style="top:637px;">Calendar</div>
+    <img class="creative-illustration" style="right:54px; bottom:135px; width:560px;" src="../../assets/generated/lead-handoff-dryrun/slide-2-handoff-chaos.png" alt="" />
+    <img class="hireai-text-logo" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="3"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy" style="text-align:center;">
+      <h1 class="hireai-h1" style="--hireai-h1-size:72px;">HireAI remembers<br/>the next step.</h1>
+      <p class="hireai-highlight" style="--hireai-highlight-size:72px; margin-top:18px;">Even when your team is busy.</p>
+      <p class="hireai-body-bold" style="--hireai-body-size:27px; margin:42px auto 0; max-width:790px;">It checks the context, drafts the reply, updates the system, and nudges the right owner.</p>
+    </section>
+    <img class="creative-illustration" style="left:195px; bottom:58px; width:690px;" src="../../assets/generated/lead-handoff-dryrun/slide-3-ai-workflow-hub.png" alt="" />
+    <img class="hireai-text-logo" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+  </main>
+
+  <main class="hireai-creative">
+    <img class="hireai-box-logo" src="../../assets/logos/hireai-box-logo.svg" alt="HireAI box logo" />
+    <nav class="hireai-pagination" data-page="4"><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span><span class="hireai-pagination__dot"></span></nav>
+    <section class="slide-copy slide-copy--left">
+      <h1 class="hireai-h1" style="--hireai-h1-size:69px;">No more<br/>“who owns this?”</h1>
+      <p class="hireai-highlight" style="--hireai-highlight-size:70px; margin-top:16px;">Just clear next actions.</p>
+      <p class="hireai-body-bold" style="--hireai-body-size:26px; margin-top:34px;">HireAI keeps leads, requests, and follow-ups moving across the tools your team already uses.</p>
+    </section>
+    <img class="creative-illustration" style="right:25px; top:420px; width:520px;" src="../../assets/generated/lead-handoff-dryrun/slide-4-clear-owner.png" alt="" />
+    <img class="creative-illustration" style="left:62px; top:785px; width:380px;" src="../../assets/ui/book-discovery-call-cta-v5.png" alt="Book a discovery call" />
+    <img class="hireai-text-logo" style="left:72px; bottom:152px;" src="../../assets/logos/hireai-text-logo.svg" alt="HireAI text logo" />
+    <div class="footer-band" style="height:132px;"><div class="top" style="margin-top:23px; font-size:24px;">Let someone handle the rest.</div><div class="url" style="margin-top:10px;">https://hireai.bot</div></div>
+  </main>
+</body>
+</html>

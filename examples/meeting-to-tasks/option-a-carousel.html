@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>HireAI Option A — Meeting Notes to Tasks Carousel</title>
+  <link rel="stylesheet" href="../../components/hireai-brand.css" />
+  <style>
+    @font-face { font-family: FrauncesLocal; src: url('../../assets/fonts/Fraunces.ttf'); font-weight: 800; }
+    @font-face { font-family: CaveatLocal; src: url('../../assets/fonts/Caveat.ttf'); font-weight: 700; }
+    @font-face { font-family: InterLocal; src: url('../../assets/fonts/Inter.ttf'); font-weight: 700; }
+    :root { --orange:#E85328; --black:#000; --gray:#7C7C7C; --peach:#F9EEEA; }
+    body { margin:0; background:#ddd; font-family:InterLocal, sans-serif; }
+    .deck { display:grid; grid-template-columns:repeat(2,1080px); gap:24px; padding:24px; }
+    .slide { position:relative; width:1080px; height:1080px; overflow:hidden; background:#fff; background-image: radial-gradient(rgba(226,229,235,.52) 2.5px, transparent 2.8px); background-size:27px 27px; background-position:14px 14px; }
+    .box-logo { position:absolute; left:66px; top:57px; width:100px; height:100px; }
+    .text-logo { position:absolute; left:66px; bottom:71px; width:123px; }
+    .text-logo.center { left:50%; transform:translateX(-50%); }
+    .dots { position:absolute; right:76px; top:104px; display:flex; gap:4px; }
+    .dot { width:20px; height:20px; border-radius:50%; background:#3F4142; }
+    .dot.active { background:var(--orange); }
+    h1 { position:absolute; margin:0; font-family:FrauncesLocal, Georgia, serif; font-size:74px; line-height:.96; letter-spacing:-1px; color:#000; font-weight:800; }
+    .center { text-align:center; left:0; right:0; }
+    .body { position:absolute; font-size:29px; line-height:1.18; color:#000; font-weight:700; }
+    .highlight { font-family:CaveatLocal, cursive; color:var(--orange); font-weight:700; }
+    .art { position:absolute; object-fit:contain; z-index:1; }
+    .blob { position:absolute; z-index:0; background:#F7C6B5; opacity:.58; border-radius:50%; transform:rotate(-6deg); }
+    .footer-band { position:absolute; left:0; right:0; bottom:0; height:106px; background:var(--peach); text-align:center; font-weight:700; }
+    .footer-band .top { margin-top:26px; font-size:25px; color:#000; }
+    .footer-band .url { margin-top:6px; font-size:22px; color:var(--orange); }
+    .cta { position:absolute; left:62px; top:805px; width:393px; z-index:2; }
+  </style>
+</head>
+<body>
+  <!-- Source composition: accepted HireAI HTML/CSS layout basis, rendered by browser screenshot. -->
+  <main class="deck">
+    <section class="slide" id="slide-1">
+      <img class="box-logo" src="../../assets/logos/hireai-box-logo.svg" />
+      <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <h1 class="center" style="top:198px; font-size:76px;">The meeting ended.<br/>The work didn't.</h1>
+      <div class="highlight center" style="position:absolute; top:374px; font-size:78px; z-index:2;">Now someone has to chase it.</div>
+      <div class="body center" style="top:468px; font-size:27px;">Notes are easy. Follow-through is where things slip.</div>
+      <div class="blob" style="left:250px; top:565px; width:620px; height:345px;"></div>
+      <img class="art" style="left:178px; top:535px; width:725px; height:405px;" src="../../assets/generated/meeting-to-tasks-html/slide-1-meeting-notes.png" />
+      <img class="text-logo center" src="../../assets/logos/hireai-text-logo.svg" />
+    </section>
+
+    <section class="slide" id="slide-2">
+      <img class="box-logo" src="../../assets/logos/hireai-box-logo.svg" />
+      <div class="dots"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+      <h1 style="left:86px; top:190px; font-size:69px;">After every call,<br/>someone still has to:</h1>
+      <div class="body" style="left:92px; top:412px; font-size:28px; line-height:1.45; width:410px; z-index:2;">
+        write the recap<br/>
+        assign the owner<br/>
+        set the reminder<br/>
+        update the CRM<br/>
+        <span class="highlight" style="font-size:58px;">then follow up</span>
+      </div>
+      <img class="art" style="right:-5px; bottom:125px; width:610px; height:500px;" src="../../assets/generated/meeting-to-tasks-html/slide-2-scattered-actions.png" />
+      <img class="text-logo" src="../../assets/logos/hireai-text-logo.svg" />
+    </section>
+
+    <section class="slide" id="slide-3">
+      <img class="box-logo" src="../../assets/logos/hireai-box-logo.svg" />
+      <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+      <h1 class="center" style="top:198px; font-size:74px;">HireAI turns<br/>meeting notes</h1>
+      <div class="highlight center" style="position:absolute; top:365px; font-size:82px; z-index:2;">into next actions.</div>
+      <div class="body center" style="top:465px; font-size:27px; max-width:820px; margin:auto;">Tasks, owners, reminders, and updates — routed before they disappear.</div>
+      <img class="art" style="left:170px; top:560px; width:740px; height:400px;" src="../../assets/generated/meeting-to-tasks-html/slide-3-automation-hub.png" />
+      <img class="text-logo center" src="../../assets/logos/hireai-text-logo.svg" />
+    </section>
+
+    <section class="slide" id="slide-4">
+      <img class="box-logo" src="../../assets/logos/hireai-box-logo.svg" />
+      <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div>
+      <h1 style="left:72px; top:186px; font-size:67px;">Your team leaves<br/>the call aligned.</h1>
+      <div class="highlight" style="position:absolute; left:72px; top:346px; font-size:72px; z-index:2;">HireAI keeps it moving.</div>
+      <div class="body" style="left:72px; top:450px; width:420px; font-size:26px; line-height:1.22; z-index:2;">Follow-ups, task owners, and reminders get handled across the tools you already use.</div>
+      <img class="art" style="right:0; top:430px; width:570px; height:430px;" src="../../assets/generated/meeting-to-tasks-html/slide-4-completed-workflow.png" />
+      <img class="cta" src="../../assets/ui/book-discovery-call-cta-v5.png" />
+      <div class="footer-band"><div class="top">Let someone handle the rest.</div><div class="url">https://hireai.bot</div></div>
+    </section>
+  </main>
+</body>
+</html>
